@@ -1,0 +1,148 @@
+Ene Daniela Elena
+326CC
+Nivel de dificultate: ridicat
+Timp de rezolvare: 60 ore
+
+Gestiunea utilizatorilor:
+	Un utilizator este reprezentat de un obiect al clasei 
+	Utilizator care are ca date ale clasei username, parola, nume, data 
+	creare si data logare. Gestiunea propriu-zisa se face in clasa ProcesorComenzi
+	contine implementarile comenzilor login, newuser, logout
+	si userinfo.
+	NEWUSER:
+		Se instantiaza un obiect de tip Utilizator; se verifica daca username-ul
+		 este valid; se adauga obiectul nou creat in lista de utilizatori.
+	LOGIN:
+		Se parcurge lista de utilizatori si se verifica daca
+		username-ul si parola introduse corespund unui utilizator
+		din lista; daca da, utilizatorul curent devine utilizatorul
+		identificat din lista; daca nu, utilizatorul nu se 
+		schimba; se notifica logger-ul in cazul schimbarii utilizatorului.
+	LOGOUT:
+		Utilizatorul curent devin utilizatorul guest; se notifica loggerul.
+	USERINFO:
+		Daca se apeleaza cu parametrul "-POO", se creaza un JList care 
+		primeste un vector de stringuri reprezentand informatiile despre 
+		user-ul curent. Daca se apeleaza fara parametru, doar se afiseaza
+		informatiile.
+	Premisiunile unui utilizator sunt construite ca obiect al clasei Premisiuni
+	cu datele read, write si utilizatorul caruia ii apartin aceste permisiuni. 		
+	In main se creaza lista de utilizatori reprezentata de un List<Utilizator>
+	si utilizatorii root si guest care sunt adaugati in lista.
+
+Sistemul de fisiere:
+	Sistemul de fisiere este construit cu ajutorul a doua clase: File si Folder.
+	Clasa File creaza un obiect fisier si are datele: nume fisier, dimensiune fisier,
+	tip fisier, ora de creare, machineID si un vector de permisiuni. In constructor,
+	in vectorul de permisiuni se adauga permisiunile pentru utilizatorii guest (doar
+	citire) si root (citire si scriere), utilizatorul care creaza fisierul are toate
+	drepturile, iar ceilalti utilizatori au doar drept de citire.
+	Clasa Folder creaza un obiect folder si are datele: nume folder, ora de creare, 
+	dimensiune (care reprezinta suma tuturor fisierelor pe care le contine), legatura 
+	cu folderul parinte, o lista de copii de tip Repository, reprezentand toate 
+	subdirectoarele si fisierele asociate folderului si un vector de permisiuni. 
+	Permisiuni le creaza asemenator cu cele din clasa File.
+Comenzi:
+	Clasele ReadCommand si WriteCommand decid daca utilizatorul are drepturi de citire
+	respectiv de scriere in folder sau fisier.
+	Fiecare comanda este implementata intr-o clasa diferita, toate clasele ce definesc
+	comenzi extind ReadCommand sau WriteCommand in functie de tipul comenzii si 
+	implementeaza interfata Command cu metoda execute(Repository r).
+	Comenzile sunt procesate de clasa CommandFactory, care decide despre ce comanda
+	este vorba; creaza un obiect de tipul comenzii respective si apeleaza metoda 
+	execute a obiectului creat.
+	Comanda MKDIR:
+		In metoda execute a comenzii MKDIR se instantiaza un obiect de tip Folder cu 
+		numele dat in comanda; se seteaza ca parinte al noului folder, folderul curent;
+		se verifica daca utilizatorul are drepturi de scriere in folderul curent, daca 
+		da, se adauga noul folder la lista de Repository a folderului curent, daca nu,
+		se afiseaza un mesaj de eroare.
+	Comanda TOUCH:
+		In metoda execute a comenzii TOUCH se instantiaza un obiect de tip File cu numele,
+		dimensiunea si tipul date in comanda; se seteaza ca parinte al noului fisier,
+		folderul curent; se verifica daca utilizatorul are drepturi de scriere in folderul
+		curent; daca da, se adauga fisierul in lista de Repository a folderului parinte
+		si se mareste dimensiunea folderului parinte cu dimensiunea noului fisier adaugat,
+		daca nu, se afiseaza un mesaj de eroare.
+	Comanda LS:
+		In metoda execute a comenzii LS fara parametrii se parcurge lista de subdirectoare
+		si fisiere a folderului curent si se afiseaza numele acestora.
+		Daca comanda are parametrul "-a" impreuna cu numele se mai afiseaza si data crearii
+		si dimensiunea.
+		Daca comanda are parametrul "-r" cand se parcurge lista, daca elementul Repository
+		este Folder se apeleaza recursiv functia. Recursivitatea se incheie cand au fost
+		parcurse toate folderele.
+		Pentru expresiile regulate am folosit clasele Pattern si Matcher.
+	Comanda CD:
+		In metoda execute a comenzii CD se parcurge vectorul de fisiere obtinut prin metoda
+		split("/"), iar daca elementul din vector de afla in lista de Repository a folderului
+		curent, acel element devine folderul curent. Daca elementul nu se afla in lista de 
+		arunca exceptia MyInvalidPathException.
+		Daca calea incepe cu "~" folderul curent se initializeaza cu folderul root.
+		Daca calea contine ".." folderul curent devine folderul parinte al folderului curent.
+		De asemenea in aceasta clasa se adauga sau se sterg elemente in functie de parcurgere
+		intr-un vector de stringuri care pastreaza calea din folderul root pana in folderul curent.
+	Comanda PWD:
+		In metoda execute a comenzii PWD se afiseaza elementele vectorului de stringuri, construit
+		in clasa comenzii CD.
+		Daca lungimea stringului obtinut prin concatenarea elementelor din vector depaseste 255 se
+		arunca exceptia MyPathTooLongException.
+	Comanda RM:
+		In metoda execute a comenzii RM se verifica daca se doreste stergerea unui folder sau unui
+		fisier. Daca se doreste stergerea unui fisier, se verifica daca fisierul exista, se verifica
+		permisiunile, se elimina din lista de Repository a folderului parinte si dimensiunea 
+		fisierului se scade din dimensiunea folderului parinte. Daca se doreste stergerea unui folder,
+		se verifica daca exista, se verifica permisiunile, daca folderul este gol, este eliminat din
+		lista de Repository a folderului parinte.
+		Daca comanda se apeleaza cu parametrul "-r", se gaseste folderul ce urmeaza sa fie sters, i se
+		parcurge lista de Repsitory, daca se intalneste un fisier, se verifica permisiunile si se sterge,
+		daca se intalneste un folder, se verifica permisiunile si se apeleaza recursiv functia.
+	Logger:	
+		Am creat clasa abstracta Observer ce contine metode ce vor fi apelate in metodele ce notifica 
+		logger-ul. In clasa MyObserver am implementat aceste metode si am scris mesaje in fisier folosind
+		metodele error() si info() ale obiectului de tip Logger.
+Serviciul de cloud, statii si distribuire:
+	Statiile de stocare sunt reprezentate prin clasa MyStoreStation care extinde clasa abstracta 
+	StoreStation si are ca date ale clasei un MachineID, dimensiune si un HashSet<Repository>.
+	Pentru a putea scrie obiecte de tip folder sau fisier in hashSet-uri trebuie sa "clonam" 
+	obiectul pentru a nu pastra referinta obiectului din ierarhia de directoare. Pentru a face 
+	acest lucru am folosit atat pentru fisier cat si pentru folder un constructor ce primeste un
+	obiect de tip Folder/File si construieste un alt obiect folosindu-se de datele celui primit.
+	In cazul folderului se parcurge lista de Repsitory si daca folderul contine un subdirector
+	se apeleaza recursiv constructorul, daca contine un fisier, se apeleaza constructorul din
+	clasa File.
+	Clasa CloudService determina daca s-au dat comenzile upload sau sync, creaza un obiect de
+	 tip CommandUPLOAD sau CommandSYNC si apleaza metoda execute a obiectului.
+	CommandUPLOD:
+		In metoda execute se verifica daca dimensiunea folderului/fisierului ce se vrea a fi
+		incarcat pe statii nu depaseste dimensiunea totala a statiilor. Daca da, se arunca
+		exceptia MyNotEnoughSpaceException, daca nu se apeleaza functia 
+		storeRecursively(Repository r) ce parcurge recursiv ierarhia si stocheaza elementele
+		pe statii prin apelarea metodei store(Repository r) din MyStoreStation. Functia 
+		store(Repository r) apeleaza constructorii de mai sus pentru a clona obiectul, 
+		seteaza MachineID-ul, adauga obiectul in hashSet si scade dimensiunea statie cu
+		dimensiunea obiectului, daca acesta este un fisier.
+	CommandSYNC:
+		In metoda execute, daca ierarhia a incaput pe o singura statie, se cauta folderul
+		radacina in arbore, se elimina din lista de Repository a folderului sau parinte
+		si se adauga din nou de pe statie. Daca ierarhia se intinde pe mai multe statii
+		se completeaza nodurile din prima, apoi se trece la urmatoarele statii folosind
+		MachineID pentru a identifica pe ce statie se afla nodul.
+ Interfata grafica:
+ 	Interfata grafica este compusa dintr-un jTextArea si un JScrollPanel pentru care am
+ 	setat dimensiune, foreground, background si font. In listener am adaugat o metoda
+ 	care se ocupa de citirea comenzii si trimiterea acesteia catre cele 3 clase procesoare
+ 	de comenzi, daca codul tastei apasate este cel al tastei enter.
+ 	De asemenea fiecare noua linie din terminal afiseaza utilizatorul curent si calea
+ 	din root catre folderul curent. Pentru ca textul deja introdus sa nu fie editabil
+ 	am folosit o clasa Filter ce extinde DocumentFilter si am adaugat un obiect de tip
+ 	Filter obiectului de tip JTextArea.
+ 	PEntru comenzile ce primesc parametrul "-POO" se creaza alte controale de tip JDialog,
+ 	JList respectiv JTable care se incarca cu datele din output-ul comenzii.
+Bonus:
+	Test Driven Development (TDD): Am scris teste pentru comenzile CD, MKDIR si TOUCH 
+	folosind JUnit Testing, pe care le-am adaugat apoi intr-o suita de teste.
+	Look and feel: Am adaugat .jar-ul in proiect si am setat lookandfeel-ul primit.
+
+Observatii: Pentru a putea rula programul, focus-ul mouse-ului trebuie pus in continuarea promptului,
+nu pe linia urmatoare.

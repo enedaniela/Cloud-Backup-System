@@ -1,0 +1,84 @@
+@Cloud:~/root:newuser sheldon sheldon Sheldon Cooper
+<Success
+@Cloud:~/root:newuser leonard leonard Leonard Hofstadter 
+<Success
+@Cloud:~/root:newuser sheldon 1234 Another Sheldon
+This username is taken. Try another one!
+@Cloud:~/root:userinfo
+<UserName: root FirstName:  LastName:  Created: 2016/01/07 19:53:32 LastLogin: 2016/01/07 19:53:32
+@Cloud:~/root:login leonard leonard
+<Success
+Leonard @Cloud:~/root:mkdir Leonard'sFiles
+<Success
+Leonard @Cloud:~/root:cd Leonard'sFiles
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles:mkdir photosOfPenny
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:touch photo1 6 binar
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:touch photo2 7 binar
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:touch photo3 5 binar
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:cd ../../..
+<Success
+Leonard @Cloud:~/root:logout
+<Success
+@Cloud:~/root:login sheldon sheldon
+<Success
+Sheldon @Cloud:~/root:userinfo
+<UserName: sheldon FirstName: Sheldon LastName: Cooper Created: 2016/01/07 19:53:59 LastLogin: 2016/01/07 19:59:16
+Sheldon @Cloud:~/root:mkdir Sheldon'sFiles
+<Success
+Sheldon @Cloud:~/root:cd Sheldon'sFiles
+<Success
+Sheldon @Cloud:~/root/Sheldon'sFiles:touch darkMatter 10 text
+<Success
+Sheldon @Cloud:~/root/Sheldon'sFiles:touch theoryOfStrings 5 text
+<Success
+Sheldon @Cloud:~/root/Sheldon'sFiles:ls -r (.*)
+<F: darkMatter 10 2016/01/07 20:00:42
+<F: theoryOfStrings 5 2016/01/07 20:01:00
+<Success
+Sheldon @Cloud:~/root/Sheldon'sFiles:cd ..
+Sheldon @Cloud:~/root:ls
+Sheldon'sFiles
+Sheldon @Cloud:~/root:logout
+<Success
+@Cloud:~/root:login leonard leonard
+<Success
+Leonard @Cloud:~/root:cd Leonard'sFiles
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles:upload photosOfPenny
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:ls -a (.*)
+<F: photo1 6 2016/01/07 20:32:55
+<F: photo2 7 2016/01/07 20:33:10
+<F: photo3 5 2016/01/07 20:33:23
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:rm [photo]
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:ls
+No permissions to read or the folder is empty
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:cd ..
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles:sync photosOfPenny
+<Success
+Leonard @Cloud:~/root/Leonard'sFiles:cd photosOfPenny
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:ls -a (.*)
+<F: photo1 6 2016/01/07 20:32:55
+<F: photo2 7 2016/01/07 20:33:10
+<F: photo3 5 2016/01/07 20:33:23
+Leonard @Cloud:~/root/Leonard'sFiles/photosOfPenny:cd ../../..
+<Success
+Leonard @Cloud:~/root:logout
+<Success
+@Cloud:~/root:userinfo -POO
+root
+2016/01/07 20:59:02
+2016/01/07 20:59:02
+<Success
+@Cloud:~/root:end
+Wrong command format
+@Cloud:~/root:echo End of second test
+End of second test 

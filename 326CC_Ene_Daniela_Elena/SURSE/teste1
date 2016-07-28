@@ -1,0 +1,99 @@
+@Cloud:~/root:userinfo
+<UserName: guest FirstName:  LastName:  Created: 2016/01/05 11:25:34 LastLogin: 2016/01/05 11:25:34
+ @Cloud:~/root:newuser dana dana Daniela Ene
+<Success
+ @Cloud:~/root:login dana dana
+<Success
+Daniela @Cloud:~/root:userinfo
+<UserName: dana FirstName: Daniela LastName: Ene Created: 2016/01/05 11:25:57 LastLogin: 2016/01/05 11:26:06
+Daniela @Cloud:~/root:mkdir Dana'sHome
+<Success
+Daniela @Cloud:~/root:cd Dana'sHome
+Daniela @Cloud:~/root/Dana'sHome:mkdir work
+<Success
+Daniela @Cloud:~/root/Dana'sHome:cd work
+Daniela @Cloud:~/root/Dana'sHome/work:touch lab1POO.java 5 binar
+<Success
+Daniela @Cloud:~/root/Dana'sHome/work:touch tema1.java 3 binar
+<Success
+Daniela @Cloud:~/root/Dana'sHome/work:mkdir EEA
+<Success
+Daniela @Cloud:~/root/Dana'sHome/work:ls
+lab1POO.java
+tema1.java
+EEA
+Daniela @Cloud:~/root/Dana'sHome/work:cd EEA
+Daniela @Cloud:~/root/Dana'sHome/work/EEA:touch tema1.txt 1 text
+<Success
+Daniela @Cloud:~/root/Dana'sHome/work/EEA:pwd
+/root/Dana'sHome/work/EEA
+Daniela @Cloud:~/root/Dana'sHome/work/EEA:cd ../../..
+Daniela @Cloud:~/root:logout
+<Success
+ @Cloud:~/root:userinfo
+<UserName: guest FirstName:  LastName:  Created: 2016/01/05 11:25:34 LastLogin: 2016/01/05 11:25:34
+ @Cloud:~/root:newuser vali vali Valentin Ene
+<Success
+ @Cloud:~/root:login vali vali
+<Success
+Valentin @Cloud:~/root:ls
+Dana'sHome
+Valentin @Cloud:~/root:mkdir Vali'sHome
+<Success
+Valentin @Cloud:~/root:cd Vali'sHome
+Valentin @Cloud:~/root/Vali'sHome:mkdir movies
+<Success
+Valentin @Cloud:~/root/Vali'sHome:cd movies
+Valentin @Cloud:~/root/Vali'sHome/movies:touch Django 4 binar
+<Success
+Valentin @Cloud:~/root/Vali'sHome/movies:touch Frozen 2 binar
+<Success
+Valentin @Cloud:~/root/Vali'sHome/movies:ls
+Django
+Frozen
+Valentin @Cloud:~/root/Vali'sHome/movies:ls -a (.*)
+<F: Django 4 2016/01/05 11:34:17
+<F: Frozen 2 2016/01/05 11:34:26
+Valentin @Cloud:~/root/Vali'sHome/movies:cd ../..
+Valentin @Cloud:~/root:ls -r (.*)
+<D: Dana'sHome 0 2016/01/05 11:26:23
+<D: work 8 2016/01/05 11:26:53
+<F: lab1POO.java 5 2016/01/05 11:27:29
+<F: tema1.java 3 2016/01/05 11:27:46
+<D: EEA 1 2016/01/05 11:27:51
+<F: tema1.txt 1 2016/01/05 11:28:37
+<D: Vali'sHome 0 2016/01/05 11:33:22
+<D: movies 6 2016/01/05 11:33:51
+<F: Django 4 2016/01/05 11:34:17
+<F: Frozen 2 2016/01/05 11:34:26
+Valentin @Cloud:~/root:logout
+<Success
+ @Cloud:~/root:login dana dana
+<Success
+Daniela @Cloud:~/root:cd Vali'sHome
+Daniela @Cloud:~/root/Vali'sHome:cd movies
+Error: No permission to read
+Daniela @Cloud:~/root/Vali'sHome:rm movies
+Error: No write permission
+Daniela @Cloud:~/root/Vali'sHome:logout
+<Success
+ @Cloud:~/root/Vali'sHome:login vali vali
+<Success
+Valentin @Cloud:~/root/Vali'sHome:cd ..
+Valentin @Cloud:~/root:upload Vali'sHome
+Valentin @Cloud:~/root:cd Vali'sHome/movies
+Valentin @Cloud:~/root/Vali'sHome/movies:ls
+Django
+Frozen
+Valentin @Cloud:~/root/Vali'sHome/movies:rm Django
+<Success
+Valentin @Cloud:~/root/Vali'sHome/movies:ls
+Frozen
+Valentin @Cloud:~/root/Vali'sHome/movies:cd ../..
+Valentin @Cloud:~/root:sync Vali'sHome
+Valentin @Cloud:~/root:cd Vali'sHome/movies
+Valentin @Cloud:~/root/Vali'sHome/movies:ls
+Django
+Frozen
+Valentin @Cloud:~/root/Vali'sHome/movies:echo End of first test
+End of first test
